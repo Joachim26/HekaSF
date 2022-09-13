@@ -311,8 +311,8 @@ ifeq ($(COMP),gcc)
 
 	ifeq ($(arch),$(filter $(arch),armv7 armv8))
 		ifeq ($(OS),Android)
-			CXXFLAGS += -m$(bits)
-			LDFLAGS += -m$(bits)
+			CXXFLAGS += 
+			LDFLAGS += 
 		endif
 	else
 		CXXFLAGS += -m$(bits)
@@ -349,7 +349,7 @@ ifeq ($(COMP),mingw)
 		CXX=g++
 	endif
 
-	CXXFLAGS += -Wextra -Wshadow
+	CXXFLAGS += -pedantic -Wextra -Wshadow
 	LDFLAGS += -static
 endif
 
@@ -373,7 +373,7 @@ ifeq ($(COMP),clang)
 	ifeq ($(arch),$(filter $(arch),armv7 armv8))
 		ifeq ($(OS),Android)
 			CXXFLAGS += -m$(bits)
-			LDFLAGS += -m$(bits)
+			LDFLAGS += -m$(bits) -static-libstdc++
 		endif
 	else
 		CXXFLAGS += -m$(bits)
@@ -427,7 +427,7 @@ ifdef COMPCXX
 endif
 
 ### Sometimes gcc is really clang
-ifeq ($(COMP),gcc)
+ifeq ($(COMP),)
 	gccversion = $(shell $(CXX) --version)
 	gccisclang = $(findstring clang,$(gccversion))
 	ifneq ($(gccisclang),)
@@ -470,7 +470,7 @@ ifeq ($(optimize),yes)
 
 	ifeq ($(comp),gcc)
 		ifeq ($(OS), Android)
-			CXXFLAGS += -fno-gcse -mthumb -march=armv7-a -mfloat-abi=softfp
+			CXXFLAGS += -fno-gcse -march=native
 		endif
 	endif
 
@@ -784,7 +784,7 @@ default:
 
 all: $(EXE) .depend
 
-config-sanity:
+config-sanity: net
 	@echo ""
 	@echo "Config:"
 	@echo "debug: '$(debug)'"
