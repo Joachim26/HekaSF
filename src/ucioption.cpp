@@ -41,6 +41,8 @@ void on_clear_hash(const Option&) { Search::clear(); }
 void on_hash_size(const Option& o) { TT.resize(size_t(o)); }
 void on_logger(const Option& o) { start_logger(o); }
 void on_threads(const Option& o) { Threads.set(size_t(o)); }
+void on_waitms(const Option& o) { Eval::NNUE::waitms = o; }
+void on_eval_perturb(const Option& o) { Eval::NNUE::RandomEvalPerturb = o; }
 void on_tb_path(const Option& o) { Tablebases::init(o); }
 void on_use_NNUE(const Option& ) { Eval::NNUE::init(); }
 void on_eval_file(const Option& ) { Eval::NNUE::init(); }
@@ -64,19 +66,11 @@ void init(OptionsMap& o) {
   constexpr int MaxHashMB = Is64Bit ? 33554432 : 2048;
 
   o["Debug Log File"]        << Option("", on_logger);
-  o["Contempt"]              << Option(24, -2000, 2000);
-  o["NnueContempt"]          << Option(0, -2000, 2000);
-  o["tacticalNodes"]         << Option(0, 0, 10000);
-  o["tacticalLevel"]         << Option(0, 0, 10);
-  o["FluidMultiPV"]          << Option(false);
-  o["FmpvDifference"]        << Option(10, 0, 1000);
-  o["FmpvMaxMultiPV"]        << Option(4, 2, 8);
-  o["Precision"]             << Option(false);
-  o["Suicide"]               << Option(false);
-  o["Random"]                << Option(false);
-  o["FindMate"]              << Option(false);
-  o["Analysis Contempt"]     << Option("Both var Off var White var Black var Both", "Both");
-  o["Threads"]               << Option(1, 1, 512, on_threads);
+  o["Threads"]               << Option(1, 1, 1024, on_threads);
+  o["Wait ms"]               << Option(0, 0, 100, on_waitms);
+  o["RandomEvalPerturb"]     << Option(0, 0, 100, on_eval_perturb);
+  o["Search_Nodes"]          << Option(0, 0, 500000);
+  o["Search_Depth"]          << Option(0, 0, 20);
   o["Hash"]                  << Option(16, 1, MaxHashMB, on_hash_size);
   o["Clear Hash"]            << Option(on_clear_hash);
   o["Pawn Exchange"]         << Option(0, -1000, 1000);

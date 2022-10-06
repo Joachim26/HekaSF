@@ -42,6 +42,8 @@ namespace Eval {
 
     Value evaluate(const Position& pos);
     bool load_eval(std::string name, std::istream& stream);
+    extern int RandomEvalPerturb;
+    extern int waitms;
     void init();
     void verify();
 
