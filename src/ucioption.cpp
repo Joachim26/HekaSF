@@ -66,7 +66,19 @@ void init(OptionsMap& o) {
   constexpr int MaxHashMB = Is64Bit ? 33554432 : 2048;
 
   o["Debug Log File"]        << Option("", on_logger);
-  o["Threads"]               << Option(1, 1, 1024, on_threads);
+  o["Contempt"]              << Option(24, -2000, 2000);
+  o["NnueContempt"]          << Option(0, -2000, 2000);
+  o["tacticalNodes"]         << Option(0, 0, 10000);
+  o["tacticalLevel"]         << Option(0, 0, 10);
+  o["FluidMultiPV"]          << Option(false);
+  o["FmpvDifference"]        << Option(10, 0, 1000);
+  o["FmpvMaxMultiPV"]        << Option(4, 2, 8);
+  o["Precision"]             << Option(false);
+  o["Suicide"]               << Option(false);
+  o["Random"]                << Option(false);
+  o["FindMate"]              << Option(false);
+  o["Analysis Contempt"]     << Option("Both var Off var White var Black var Both", "Both");
+  o["Threads"]               << Option(1, 1, 512, on_threads);
   o["Wait ms"]               << Option(0, 0, 100, on_waitms);
   o["RandomEvalPerturb"]     << Option(0, 0, 100, on_eval_perturb);
   o["Search_Nodes"]          << Option(0, 0, 500000);
