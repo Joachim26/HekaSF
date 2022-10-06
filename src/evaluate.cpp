@@ -61,7 +61,10 @@ using namespace Eval::NNUE;
 namespace Eval {
 
   bool useNNUE;
-  string eval_file_loaded = "None";
+  string currentEvalFileName = "None";
+
+  int NNUE::RandomEvalPerturb = 0;
+  int NNUE::waitms = 0;
 
   /// NNUE::init() tries to load a nnue network at startup time, or when the engine
   /// receives a UCI command "setoption name EvalFile value nn-[a-z0-9]{12}.nnue"
