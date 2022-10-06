@@ -61,7 +61,7 @@ using namespace Eval::NNUE;
 namespace Eval {
 
   bool useNNUE;
-  string currentEvalFileName = "None";
+  string eval_file_loaded = "None";
 
   int NNUE::RandomEvalPerturb = 0;
   int NNUE::waitms = 0;
