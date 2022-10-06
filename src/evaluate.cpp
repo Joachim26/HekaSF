@@ -23,9 +23,12 @@
 #include <fstream>
 #include <iomanip>
 #include <sstream>
+#include <random>
 #include <iostream>
 #include <streambuf>
 #include <vector>
+#include <chrono>
+#include <thread>
 
 #include "bitboard.h"
 #include "evaluate.h"
